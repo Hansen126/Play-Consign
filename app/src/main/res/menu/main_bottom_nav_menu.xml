@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainHomeMenu"
+        android:icon="@drawable/ic_home_selector"
+        android:iconTint="@null"
+        android:iconTintMode="add"
+        android:title="Home" />
+    <item
+        android:id="@+id/mainConsignMenu"
+        android:icon="@drawable/ic_consign_selector"
+        android:title="Consign" />
+    <item
+        android:id="@+id/mainProfileMenu"
+        android:icon="@drawable/ic_profile_selector"
+        android:title="Profile" />
+</menu>
