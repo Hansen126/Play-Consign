@@ -51,7 +51,8 @@
             android:layout_marginBottom="32dp"
             android:background="@drawable/ic_searchview_outline"
             android:searchIcon="@drawable/ic_search"
-            android:queryHint="Search an Item"/>
+            android:queryHint="Search an Item"
+            android:iconifiedByDefault="false"/>
 
         <TextView
             android:id="@+id/mainTV2"
