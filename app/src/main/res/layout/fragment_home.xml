@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,22 +45,23 @@
         app:layout_constraintTop_toBottomOf="@+id/mainTV1">
 
         <SearchView
-            android:id="@+id/homeSearchView"
+            android:id="@+id/searchSearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/ic_searchview_outline"
-            android:searchIcon="@drawable/ic_search"
+            android:iconifiedByDefault="false"
             android:queryHint="Search an Item"
-            android:iconifiedByDefault="false"/>
+            android:searchIcon="@drawable/ic_search" />
 
         <TextView
-            android:id="@+id/mainTV2"
+            android:id="@+id/searchResultTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Product Category"
             android:textColor="#9E1E1E"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView

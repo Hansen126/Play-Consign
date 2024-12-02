@@ -5,29 +5,34 @@
     android:id="@+id/homeCategoryLayout_ConstraintLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/ic_searchview_outline"
-    android:paddingBottom="12dp">
+    android:layout_marginRight="12dp"
+    android:layout_marginBottom="12dp">
 
-    <ImageView
-        android:id="@+id/homeCategoryLayout_CategoryImage"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:cardCornerRadius="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_category_default" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/homeCategoryLayout_CategoryName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Category"
-        android:textAlignment="center"
-        android:textColor="#9D1E1E"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeCategoryLayout_CategoryImage" />
+        <ImageView
+            android:id="@+id/homeCategoryLayout_CategoryImage"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_category_default" />
+
+        <TextView
+            android:id="@+id/homeCategoryLayout_CategoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
+            android:text="Category"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

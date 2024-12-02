@@ -1,6 +1,7 @@
 package com.example.playconsign;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         holder.categoryName.setText(categoryName);
         holder.categoryImage.setImageResource(categoryImage);
+
+        holder.categoryCL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activityContext, SearchActivity.class);
+                activityContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,7 +60,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         TextView categoryName;
         ConstraintLayout categoryCL;
 
-        public categoryHolder(@NonNull View itemView) {
+        public CategoryHolder(@NonNull View itemView) {
             super(itemView);
             categoryImage = itemView.findViewById(R.id.homeCategoryLayout_CategoryImage);
             categoryName = itemView.findViewById(R.id.homeCategoryLayout_CategoryName);
