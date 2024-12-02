@@ -17,7 +17,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.playconsign.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
 
     ActivityMainBinding binding;
 
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
     private void switchFragment(Fragment fragment) {

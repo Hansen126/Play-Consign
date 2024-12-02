@@ -3,10 +3,15 @@ package com.example.playconsign;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +51,8 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+    List<Category> categoryList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +60,36 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        Category mouse = new Category("Mouse", R.drawable.ic_mouse);
+        Category keyboard = new Category("Keyboard", R.drawable.ic_keyboard);
+        Category headset = new Category("Headset", R.drawable.ic_headset);
+        Category monitor = new Category("Monitor", R.drawable.ic_monitor);
+        Category pc = new Category("PC", R.drawable.ic_pc);
+        Category laptop = new Category("Laptop", R.drawable.ic_laptop);
+        Category phone = new Category("Phone", R.drawable.ic_phone);
+        Category parts = new Category("PC Parts", R.drawable.ic_pc_parts);
+        Category console = new Category("Console", R.drawable.ic_console);
+        Category other = new Category("Others", R.drawable.ic_other);
+
+        categoryList.add(mouse);
+        categoryList.add(keyboard);
+        categoryList.add(headset);
+        categoryList.add(monitor);
+        categoryList.add(pc);
+        categoryList.add(laptop);
+        categoryList.add(phone);
+        categoryList.add(parts);
+        categoryList.add(console);
+        categoryList.add(other);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
