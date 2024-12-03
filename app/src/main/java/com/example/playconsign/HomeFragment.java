@@ -1,5 +1,6 @@
 package com.example.playconsign;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +76,6 @@ public class HomeFragment extends Fragment {
         Category console = new Category("Console", R.drawable.ic_console);
         Category other = new Category("Others", R.drawable.ic_other);
 
-
         categoryList.add(mouse);
         categoryList.add(keyboard);
         categoryList.add(headset);
@@ -96,6 +97,22 @@ public class HomeFragment extends Fragment {
         CategoryAdapter adapter = new CategoryAdapter(categoryList);
         categoryRV.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
         categoryRV.setAdapter(adapter);
+
+        SearchView homeSearchView = view.findViewById(R.id.homeSearchView);
+        homeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent searchIntent = new Intent(view.getContext(), SearchActivity.class);
+                searchIntent.putExtra("query", homeSearchView.getQuery());
+                view.getContext().startActivity(searchIntent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return view;
     }
 }

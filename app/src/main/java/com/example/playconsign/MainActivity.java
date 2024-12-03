@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.playconsign.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
         binding.mainBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

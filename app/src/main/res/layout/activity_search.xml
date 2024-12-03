@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/ic_arrow_back" />
 
     <LinearLayout
-        android:id="@+id/mainLinearLayout"
+        android:id="@+id/homeLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,16 +44,27 @@
         </SearchView>
 
         <TextView
+            android:id="@+id/searchCategoryTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Category: All"
+            android:textColor="#9E1E1E"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/searchResultTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Result:"
+            android:layout_marginBottom="12dp"
+            android:text="You search for"
             android:textColor="#9E1E1E"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeCategoryRV"
+            android:id="@+id/searchItemRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
