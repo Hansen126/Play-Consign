@@ -7,13 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity" >
 
+    <ImageView
+        android:id="@+id/searchBackArrow"
+        android:layout_width="40dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
     <LinearLayout
         android:id="@+id/mainLinearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,11 +34,14 @@
             android:id="@+id/searchSearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/ic_searchview_outline"
             android:iconifiedByDefault="false"
             android:queryHint="Search an Item"
-            android:searchIcon="@drawable/ic_search" />
+            android:searchIcon="@drawable/ic_search">
+
+        </SearchView>
 
         <TextView
             android:id="@+id/searchResultTV"
@@ -45,4 +58,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
