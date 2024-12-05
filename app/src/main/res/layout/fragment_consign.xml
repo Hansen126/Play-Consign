@@ -163,8 +163,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#9E1E1E"
         android:text="Consign"
         android:textColorLink="#673AB7" />
