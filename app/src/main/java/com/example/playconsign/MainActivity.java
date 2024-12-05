@@ -1,5 +1,6 @@
 package com.example.playconsign;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.playconsign.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
         binding.mainBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -45,9 +47,19 @@ public class MainActivity extends AppCompatActivity {
                 if(selectedId == R.id.mainHomeMenu){
                     switchFragment(new HomeFragment());
                 } else if (selectedId == R.id.mainConsignMenu) {
-                    switchFragment(new ConsignFragment());
+                    if(firebaseAuth.getCurrentUser() == null) {
+                        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                        startActivity(intent);
+                    } else {
+                        switchFragment(new ConsignFragment());
+                    }
                 } else if (selectedId == R.id.mainProfileMenu) {
-                    switchFragment(new ProfileFragment());
+                    if(firebaseAuth.getCurrentUser() == null) {
+                        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                        startActivity(intent);
+                    } else {
+                        switchFragment(new ProfileFragment());
+                    }
                 }
                 return true;
             }

@@ -143,16 +143,6 @@ public class ConsignFragment extends Fragment {
                     }
                 }
         );
-        consignTnCCB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (consignTnCCB.isChecked()) {
-                    consignTnCCB.setChecked(true);
-                } else {
-                    consignTnCCB.setChecked(false);
-                }
-            }
-        });
 
         TextView TnCTextView = view.findViewById(R.id.consignTnCTV);
         TnCTextView.setOnClickListener(new View.OnClickListener() {
@@ -166,27 +156,27 @@ public class ConsignFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(consignNameET.getText().toString().isEmpty()) {
-                    Toast.makeText(getContext(), "Please Enter Your Product Name", Toast.LENGTH_SHORT).show();
+                    consignNameET.setError("Please Enter Your Product Name");
                 } else if(consignNameET.getText().toString().length() < 10 || consignNameET.getText().toString().length() > 50) {
-                    Toast.makeText(getContext(), "Product Name Must Be Between 10 and 50 Characters", Toast.LENGTH_SHORT).show();
+                    consignNameET.setError("Product Name Must Be Between 10 and 50 Characters");
                 } else if(consignPriceET.getText().toString().isEmpty()) {
-                    Toast.makeText(getContext(), "Please Enter Your Product Price", Toast.LENGTH_SHORT).show();
+                    consignPriceET.setError("Please Enter Your Product Price");
                 } else if(Integer.parseInt(consignPriceET.getText().toString()) < 10000 || consignPriceET.getText().toString().length() > 10) {
-                    Toast.makeText(getContext(), "Product Price Must Be Atleast 10.000", Toast.LENGTH_SHORT).show();
+                    consignPriceET.setError("Product Price Must Be Atleast 10.000");
                 } else if(Integer.parseInt(consignPriceET.getText().toString()) % 1000 != 0) {
-                    Toast.makeText(getContext(), "Product Price Must Be Multiple of 1000", Toast.LENGTH_SHORT).show();
+                    consignPriceET.setError("Product Price Must Be Multiple of 1.000");
                 } else if(categorySpinner.getSelectedItemPosition() == 0) {
                     Toast.makeText(getContext(), "Please Select Your Product Category", Toast.LENGTH_SHORT).show();
                 } else if(conditionSpinner.getSelectedItemPosition() == 0) {
                     Toast.makeText(getContext(), "Please Select Your Product Condition", Toast.LENGTH_SHORT).show();
                 } else if(consignDescET.getText().toString().isEmpty()) {
-                    Toast.makeText(getContext(), "Please Enter Your Product Description", Toast.LENGTH_SHORT).show();
+                    consignDescET.setError("Please Enter Your Product Description");
                 } else if(consignDescET.getText().toString().length() < 10 || consignDescET.getText().toString().length() > 1000) {
-                    Toast.makeText(getContext(), "Product Description Must Be Between 10 and 1000 Characters", Toast.LENGTH_SHORT).show();
+                    consignDescET.setError("Product Description Must Be Between 10 and 1000 Characters");
                 } else if (imageUri == null) {
                     Toast.makeText(getContext(), "Please select your product image", Toast.LENGTH_SHORT).show();
                 } else if (!consignTnCCB.isChecked()) {
-                    Toast.makeText(getContext(), "Please Agree to the Terms and Conditions", Toast.LENGTH_SHORT).show();
+                    consignTnCCB.setError("Please Agree to the Terms and Conditions");
                 } else {
                     try {
                         CloudinaryManager.uploadImage(getContext(), imageUri, new CloudinaryManager.Callback() {
@@ -231,6 +221,8 @@ public class ConsignFragment extends Fragment {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Product consigned successfully!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            getContext().startActivity(intent);
                         } else {
                             Toast.makeText(getContext(), "Failed to consign product!", Toast.LENGTH_SHORT).show();
                         }

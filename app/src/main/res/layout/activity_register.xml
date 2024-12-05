@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/registerMaroonIV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-24dp"
+                app:srcCompat="@drawable/ic_maroonbg" />
+
+            <ImageView
+                android:id="@+id/registerBackButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-160dp"
+                app:srcCompat="@drawable/ic_arrow_back_white" />
+
+            <TextView
+                android:id="@+id/registerRegisterTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="16dp"
+                android:text="Register"
+                android:textColor="#FFFFFF"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/registerRegister2TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="41dp"
+                android:text="Create a Play Consign Account"
+                android:textColor="#FCF5FD" />
+
+            <TextView
+                android:id="@+id/registerNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="52dp"
+                android:text="Name"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your name"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/registerEmailTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Email"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerEmailET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your email"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/registerPasswordTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Password"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerPasswordET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your password"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/registerPhoneTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Phone"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerPhoneET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your phone number"
+                android:inputType="phone"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/registerAddressTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Address"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerAddressET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="input your address"
+                android:inputType="textMultiLine"
+                android:maxLines="2"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/registerTnCCB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="By checking this, I confirmed that I agree to the" />
+
+            <TextView
+                android:id="@+id/registerTnCTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="52dp"
+                android:layout_marginTop="-16dp"
+                android:text="Terms and Conditions"
+                android:textColor="#03A9F4" />
+
+            <Button
+                android:id="@+id/registerSubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="100dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#9D1E1E"
+                android:text="Register" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
