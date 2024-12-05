@@ -10,13 +10,13 @@ public class Product {
     String productSeller;
     String productSellerAddress;
 
-    public Product(String productName, int productPrice, String productCategory, String productDesc, String productImage, String productCondition, String productSeller, String productSellerAddress) {
+    public Product(String productName, int productPrice, String productCategory, String productCondition, String productDesc, String productImage, String productSeller, String productSellerAddress) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCategory = productCategory;
+        this.productCondition = productCondition;
         this.productDesc = productDesc;
         this.productImage = productImage;
-        this.productCondition = productCondition;
         this.productSeller = productSeller;
         this.productSellerAddress = productSellerAddress;
     }

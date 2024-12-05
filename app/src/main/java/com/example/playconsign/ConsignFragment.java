@@ -1,12 +1,36 @@
 package com.example.playconsign;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +38,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ConsignFragment extends Fragment {
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private ActivityResultLauncher<Intent> pickImageLauncher;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +74,9 @@ public class ConsignFragment extends Fragment {
         return fragment;
     }
 
+    List<String> categoryList = new ArrayList<>();
+    List<String> conditionList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +84,157 @@ public class ConsignFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        categoryList.add("Select Category");
+        categoryList.add("Mouse");
+        categoryList.add("Keyboard");
+        categoryList.add("Headset");
+        categoryList.add("Monitor");
+        categoryList.add("PC");
+        categoryList.add("Laptop");
+        categoryList.add("Phone");
+        categoryList.add("PC Parts");
+        categoryList.add("Console");
+        categoryList.add("Others");
+
+        conditionList.add("Select Condition");
+        conditionList.add("Brand New In Box");
+        conditionList.add("Brand New Out Box");
+        conditionList.add("Second");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_consign, container, false);
+        View view = inflater.inflate(R.layout.fragment_consign, container, false);
+        EditText consignNameET = view.findViewById(R.id.consignNameET);
+        EditText consignPriceET = view.findViewById(R.id.consignPriceNumber);
+        Spinner categorySpinner = view.findViewById(R.id.consignCategorySpinner);
+        Spinner conditionSpinner = view.findViewById(R.id.consignConditionSpinner);
+        EditText consignDescET = view.findViewById(R.id.consignDescMLT);
+        ImageView consignImageIV = view.findViewById(R.id.consignImageIV);
+        CheckBox consignTnCCB = view.findViewById(R.id.consignTnCCB);
+        Button consignButton = view.findViewById(R.id.consignSubmitButton);
+
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categoryList);
+        ArrayAdapter<String> conditionAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, conditionList);
+
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        categorySpinner.setAdapter(categoryAdapter);
+        conditionSpinner.setAdapter(conditionAdapter);
+
+        consignImageIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImageChooser();
+            }
+        });
+
+        pickImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        imageUri = result.getData().getData();
+                        if (imageUri != null) {
+                            consignImageIV.setImageURI(imageUri);  // Update the ImageView with the selected image
+                        }
+                    }
+                }
+        );
+        consignTnCCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (consignTnCCB.isChecked()) {
+                    consignTnCCB.setChecked(true);
+                } else {
+                    consignTnCCB.setChecked(false);
+                }
+            }
+        });
+
+        TextView TnCTextView = view.findViewById(R.id.consignTnCTV);
+        TnCTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tncIntent = new Intent(getContext(), TnCActivity.class);
+                getContext().startActivity(tncIntent);
+            }
+        });
+        consignButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(consignNameET.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Please Enter Your Product Name", Toast.LENGTH_SHORT).show();
+                } else if(consignNameET.getText().toString().length() < 10 || consignNameET.getText().toString().length() > 50) {
+                    Toast.makeText(getContext(), "Product Name Must Be Between 10 and 50 Characters", Toast.LENGTH_SHORT).show();
+                } else if(consignPriceET.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Please Enter Your Product Price", Toast.LENGTH_SHORT).show();
+                } else if(Integer.parseInt(consignPriceET.getText().toString()) < 10000 || consignPriceET.getText().toString().length() > 10) {
+                    Toast.makeText(getContext(), "Product Price Must Be Atleast 10.000", Toast.LENGTH_SHORT).show();
+                } else if(Integer.parseInt(consignPriceET.getText().toString()) % 1000 != 0) {
+                    Toast.makeText(getContext(), "Product Price Must Be Multiple of 1000", Toast.LENGTH_SHORT).show();
+                } else if(categorySpinner.getSelectedItemPosition() == 0) {
+                    Toast.makeText(getContext(), "Please Select Your Product Category", Toast.LENGTH_SHORT).show();
+                } else if(conditionSpinner.getSelectedItemPosition() == 0) {
+                    Toast.makeText(getContext(), "Please Select Your Product Condition", Toast.LENGTH_SHORT).show();
+                } else if(consignDescET.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Please Enter Your Product Description", Toast.LENGTH_SHORT).show();
+                } else if(consignDescET.getText().toString().length() < 10 || consignDescET.getText().toString().length() > 1000) {
+                    Toast.makeText(getContext(), "Product Description Must Be Between 10 and 1000 Characters", Toast.LENGTH_SHORT).show();
+                } else if (imageUri == null) {
+                    Toast.makeText(getContext(), "Please select your product image", Toast.LENGTH_SHORT).show();
+                } else if (!consignTnCCB.isChecked()) {
+                    Toast.makeText(getContext(), "Please Agree to the Terms and Conditions", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        CloudinaryManager.uploadImage(getContext(), imageUri, new CloudinaryManager.Callback() {
+                            @Override
+                            public void onSuccess(String imageUrl) {
+                                addToFirebaseDatabase(consignNameET.getText().toString(),
+                                        Integer.parseInt(consignPriceET.getText().toString()),
+                                        categorySpinner.getSelectedItem().toString(),
+                                        conditionSpinner.getSelectedItem().toString(),
+                                        consignDescET.getText().toString(), imageUrl);
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    catch (Exception e) {
+                        Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        return view;
+    }
+    private void openImageChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickImageLauncher.launch(intent);
+    }
+
+    private void addToFirebaseDatabase(String productName, int productPrice, String productCategory, String productCondition, String productDescription, String imageUrl) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
+        String productId = databaseReference.push().getKey();
+
+        Product newProduct = new Product(productName, productPrice, productCategory,productCondition,
+                productDescription, imageUrl, "SellerTest", "SellerAddressTest");
+
+        if (productId != null) {
+            databaseReference.child(productId).setValue(newProduct)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Product consigned successfully!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to consign product!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

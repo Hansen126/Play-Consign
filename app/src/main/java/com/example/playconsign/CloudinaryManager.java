@@ -1,11 +1,13 @@
 package com.example.playconsign;
 
+import android.content.Context;
 import android.net.Uri;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,11 +25,11 @@ public class CloudinaryManager {
         return cloudinary;
     }
 
-    public static void uploadImage(Uri imageUri, Callback callback) {
+    public static void uploadImage(Context context, Uri imageUri, Callback callback) {
         new Thread(() -> {
             try {
-                File file = new File(imageUri.getPath());
-                Map uploadResult = getCloudinary().uploader().upload(file, ObjectUtils.emptyMap());
+                InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+                Map uploadResult = getCloudinary().uploader().upload(inputStream, ObjectUtils.emptyMap());
                 String imageUrl = (String) uploadResult.get("url");
                 callback.onSuccess(imageUrl);
             } catch (Exception e) {
