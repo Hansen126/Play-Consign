@@ -3,11 +3,23 @@ package com.example.playconsign;
 public class Product {
     String productName;
     int productPrice;
+    String productCategory;
     String productDesc;
     String productImage;
     String productCondition;
     String productSeller;
     String productSellerAddress;
+
+    public Product(String productName, int productPrice, String productCategory, String productDesc, String productImage, String productCondition, String productSeller, String productSellerAddress) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productCategory = productCategory;
+        this.productDesc = productDesc;
+        this.productImage = productImage;
+        this.productCondition = productCondition;
+        this.productSeller = productSeller;
+        this.productSellerAddress = productSellerAddress;
+    }
 
     public String getProductName() {
         return productName;
@@ -23,6 +35,14 @@ public class Product {
 
     public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getProductDesc() {

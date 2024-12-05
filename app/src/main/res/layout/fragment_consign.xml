@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,165 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/consignTV1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Consign an Item!" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:text="Consign an Item"
+        android:textColor="#9D1E1E"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/consignNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="56dp"
+        android:text="Name"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/consignNameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="input your product name"
+        android:inputType="text"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/consignPriceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="116dp"
+        android:text="Price"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="128dp"
+        android:ems="10"
+        android:hint="input your product price"
+        android:inputType="number"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/consignCategoryTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="176dp"
+        android:text="Category"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/consignCategorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="196dp" />
+
+    <TextView
+        android:id="@+id/consignConditionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="236dp"
+        android:text="Condition"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/consignConditionSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="256dp" />
+
+    <TextView
+        android:id="@+id/consignDescTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="296dp"
+        android:text="Description"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/consignDescMLT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="308dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="input your product description"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/consignImageTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="412dp"
+        android:text="Image"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="440dp"
+        app:cardCornerRadius="16dp">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_image" />
+    </androidx.cardview.widget.CardView>
+
+    <CheckBox
+        android:id="@+id/consignTnCCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="580dp"
+        android:text="I Agree to the" />
+
+    <TextView
+        android:id="@+id/consignTnCTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="142dp"
+        android:layout_marginTop="596dp"
+        android:text="Terms and Conditions"
+        android:textColor="#2196F3"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#9E1E1E"
+        android:text="Consign"
+        android:textColorLink="#673AB7" />
 
 </FrameLayout>
