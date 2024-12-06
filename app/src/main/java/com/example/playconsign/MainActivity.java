@@ -37,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         binding.mainBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 int selectedId = item.getItemId();
                 if(selectedId == R.id.mainHomeMenu){
                     switchFragment(new HomeFragment());
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (selectedId == R.id.mainProfileMenu) {
                     if(firebaseAuth.getCurrentUser() == null) {
-                        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                     } else {
                         switchFragment(new ProfileFragment());

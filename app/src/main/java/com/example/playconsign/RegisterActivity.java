@@ -2,6 +2,7 @@ package com.example.playconsign;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,12 +18,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(backIntent);
+                finish();
             }
         });
 
@@ -81,6 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
                     registerEmailET.setError("Email cannot be empty");
                 } else if(password.isEmpty()) {
                     registerPasswordET.setError("Password cannot be empty");
+                } else if(password.length() < 6) {
+                    registerPasswordET.setError("Password must be atleast 6 characters");
                 } else if(phone.isEmpty()) {
                     registerPhoneET.setError("Phone cannot be empty");
                 } else if(address.isEmpty()) {
@@ -88,8 +92,8 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if(!registerTnCCB.isChecked()) {
                     registerTnCCB.setError("You must agree to the terms and conditions");
                 } else {
-                    signUpUser(email, password);
-                    addUserToDatabase(name, email, phone, address);
+                    signUpUser(name, email, phone, address, password);
+                    Toast.makeText(RegisterActivity.this, "Signup Success", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -97,21 +101,28 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-    public void signUpUser(String email, String password) {
+    public void signUpUser(String name, String email, String phone, String address, String password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(RegisterActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                Log.d("register", "signup success");
                 firebaseAuth.signInWithEmailAndPassword(email, password);
+                addUserToDatabase(name, email, phone, address);
             } else {
-                Toast.makeText(RegisterActivity.this, "Sign up failed", Toast.LENGTH_SHORT).show();
+                EditText registerEmailET = findViewById(R.id.registerEmailET);
+                registerEmailET.setError("Enter a valid email format (example@domain.com)");
             }
         });
     }
 
     public void addUserToDatabase(String name, String email, String phone, String address) {
-        String userId = firebaseAuth.getCurrentUser().getUid();
-        User newUser = new User(name, email, phone, address);
-        firebaseDatabase.getReference("users").child(userId).setValue(newUser);
+        if(firebaseAuth.getCurrentUser() != null) {
+            String userId = firebaseAuth.getCurrentUser().getUid();
+            User newUser = new User(name, email, phone, address);
+            databaseReference.child(userId).setValue(newUser);
+        } else {
+            Log.d("register", "addUserToDatabase: currentuser is null");
+        }
+
 
     }
 }
