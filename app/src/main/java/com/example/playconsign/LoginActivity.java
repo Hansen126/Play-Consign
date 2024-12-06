@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(mainIntent);
                         } else {
-                            loginEmailET.setError("Invalid email or password");
+                            loginSubmitButton.setError("Invalid Email or Password");
                         }
                     });
                 }
