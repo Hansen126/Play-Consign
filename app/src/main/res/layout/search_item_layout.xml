@@ -8,7 +8,7 @@
     android:background="@drawable/ic_product_outline">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/searchItemLayout_productImage"
         android:layout_width="180dp"
         android:layout_height="180dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchItemLayout_productImage" />
 
     <TextView
         android:id="@+id/searchItemLayout_productPrice"
@@ -42,6 +42,19 @@
         app:layout_constraintTop_toBottomOf="@+id/searchItemLayout_productName" />
 
     <TextView
+        android:id="@+id/searchItemLayout_productCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Mouse"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchItemLayout_productPrice" />
+
+    <TextView
         android:id="@+id/searchItemLayout_productDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,14 +67,16 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchItemLayout_productPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/searchItemLayout_productCategory" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/searchItemLayout_productSeller"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="350dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Seller"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

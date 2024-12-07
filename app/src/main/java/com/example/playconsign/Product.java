@@ -10,6 +10,9 @@ public class Product {
     String productSeller;
     String productSellerAddress;
 
+    public Product() {
+    }
+
     public Product(String productName, int productPrice, String productCategory, String productCondition, String productDesc, String productImage, String productSeller, String productSellerAddress) {
         this.productName = productName;
         this.productPrice = productPrice;

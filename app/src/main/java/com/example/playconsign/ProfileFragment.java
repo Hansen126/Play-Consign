@@ -1,5 +1,6 @@
 package com.example.playconsign;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -72,6 +73,8 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 firebaseAuth.signOut();
                 Toast.makeText(getActivity(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
         return view;

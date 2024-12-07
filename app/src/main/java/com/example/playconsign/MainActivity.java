@@ -48,14 +48,18 @@ public class MainActivity extends AppCompatActivity {
                     switchFragment(new HomeFragment());
                 } else if (selectedId == R.id.mainConsignMenu) {
                     if(firebaseAuth.getCurrentUser() == null) {
-                        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                        Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(homeIntent);
                         startActivity(intent);
                     } else {
                         switchFragment(new ConsignFragment());
                     }
                 } else if (selectedId == R.id.mainProfileMenu) {
                     if(firebaseAuth.getCurrentUser() == null) {
+                        Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(homeIntent);
                         startActivity(intent);
                     } else {
                         switchFragment(new ProfileFragment());
