@@ -138,7 +138,7 @@ public class ConsignFragment extends Fragment {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         imageUri = result.getData().getData();
                         if (imageUri != null) {
-                            consignImageIV.setImageURI(imageUri);  // Update the ImageView with the selected image
+                            consignImageIV.setImageURI(imageUri);
                         }
                     }
                 }

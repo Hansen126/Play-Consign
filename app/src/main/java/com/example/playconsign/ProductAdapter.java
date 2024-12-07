@@ -2,6 +2,7 @@ package com.example.playconsign;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -43,13 +48,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         String productSeller = productList.get(position).getProductSeller();
         String productSellerAddress = productList.get(position).getProductSellerAddress();
 
+        String newProductPrice = NumberFormat.getNumberInstance(new Locale("id", "ID")).format(productPrice);
+
         holder.productName.setText(productName);
-        holder.productPrice.setText(productPrice);
+        holder.productPrice.setText("Rp " + newProductPrice);
         holder.productCategory.setText(productCategory);
         holder.productCondition.setText(productCondition);
         holder.productSeller.setText(productSeller);
-        holder.productImage.setImageURI(Uri.parse(productImage));
-
+        Log.d("ProductAdapter", "Image URL: " + productImage);
+        Glide.with(context)
+                .load(productImage)
+                .placeholder(R.drawable.ic_image)
+                .into(holder.productImage);
     }
 
     @Override
@@ -72,7 +82,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productImage = itemView.findViewById(R.id.searchItemLayout_productImage);
             productPrice = itemView.findViewById(R.id.searchItemLayout_productPrice);
             productCategory = itemView.findViewById(R.id.searchItemLayout_productCategory);
-            productCondition = itemView.findViewById(R.id.searchItemLayout_productDescription);
+            productCondition = itemView.findViewById(R.id.searchItemLayout_productCondition);
             productSeller = itemView.findViewById(R.id.searchItemLayout_productSeller);
         }
     }
