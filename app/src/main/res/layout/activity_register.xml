@@ -181,6 +181,8 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#9D1E1E"
                 android:text="Register"
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FFFFFF"
                 app:cornerRadius="8dp" />
         </LinearLayout>
     </ScrollView>

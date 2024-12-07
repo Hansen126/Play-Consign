@@ -172,12 +172,13 @@
                 android:id="@+id/consignSubmitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="24dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="20dp"
                 android:backgroundTint="#9E1E1E"
                 android:text="Consign"
-                android:textColorLink="#673AB7" />
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
 

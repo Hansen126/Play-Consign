@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homeCategoryLayout_ConstraintLayout"
-    android:layout_width="180dp"
+    android:layout_width="260dp"
     android:layout_height="180dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="160dp"
+        android:layout_width="240dp"
         android:layout_height="160dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,22 +15,22 @@
 
         <ImageView
             android:id="@+id/homeCategoryLayout_CategoryImage"
-            android:layout_width="160dp"
+            android:layout_width="240dp"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_category_default" />
 
         <TextView
             android:id="@+id/homeCategoryLayout_CategoryName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="120dp"
-            android:fontFamily="sans-serif"
-            android:gravity="center_horizontal"
+            android:fontFamily="monospace"
             android:text="Category"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

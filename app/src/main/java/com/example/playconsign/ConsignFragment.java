@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -115,6 +117,17 @@ public class ConsignFragment extends Fragment {
         ImageView consignImageIV = view.findViewById(R.id.consignImageIV);
         CheckBox consignTnCCB = view.findViewById(R.id.consignTnCCB);
         Button consignButton = view.findViewById(R.id.consignSubmitButton);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth currentUser = firebaseAuth.getCurrentUser();
+        String sellerUID = currentUser.getUid();
+        String currentSellerName;
+        DatabaseReference usersDatabaseReference = FirebaseDatabase.getInstance().getReference("users");
+        usersDatabaseReference.child(sellerUID).child("name").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                String sellerName = task.getResult().getValue(String.class);
+                currentSellerName = sellerName;
+            }
+        });
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categoryList);
         ArrayAdapter<String> conditionAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, conditionList);

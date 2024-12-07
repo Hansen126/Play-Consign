@@ -1,6 +1,5 @@
 package com.example.playconsign;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -80,21 +78,28 @@ public class SearchActivity extends AppCompatActivity {
             searchResultTV.setText("You Search for " + query);
         }
 
-//        Product testProduct = new Product();
-//        testProduct.productName = "test";
-//        testProduct.productPrice = 10000;
-//        testProduct.productCategory = "test";
-//        testProduct.productCondition = "test";
-//        testProduct.productDesc = "test";
-//        testProduct.productImage = "http://res.cloudinary.com/dwqgvlqgz/image/upload/v1733419151/plxrsyn0tqh0gvf9jbim.jpg";
-//        testProduct.productSeller = "test";
-//        testProduct.productSellerAddress = "test";
-//        productList.add(testProduct);
-//        productList.add(testProduct);
-//        productList.add(testProduct);
-//        productList.add(testProduct);
-//        productList.add(testProduct);
-        fetchProductData();
+        String result = searchSearchView.getQuery().toString();
+        fetchProductData(category, result);
+
+        searchSearchView.setSubmitButtonEnabled(true);
+        String finalCategory = category;
+        searchSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent searchIntent = new Intent(SearchActivity.this, SearchActivity.class);
+                searchIntent.putExtra("query", query);
+                startActivity(searchIntent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fetchProductData(finalCategory, newText);
+                return true;
+            }
+        });
+
+
         RecyclerView productRV = findViewById(R.id.searchItemRV);
         productAdapter = new ProductAdapter(productList);
         productRV.setLayoutManager(new GridLayoutManager(this, 2));
@@ -102,29 +107,50 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void fetchProductData() {
+    private void fetchProductData(String category, String result) {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 productList.clear();
-                for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                    Product product = new Product();
-                    product.setProductName(productSnapshot.child("productName").getValue(String.class));
-                    product.setProductPrice(productSnapshot.child("productPrice").getValue(Integer.class));
-                    product.setProductCategory(productSnapshot.child("productCategory").getValue(String.class));
-                    product.setProductCondition(productSnapshot.child("productCondition").getValue(String.class));
-                    product.setProductDesc(productSnapshot.child("productDescription").getValue(String.class));
-                    product.setProductImage(productSnapshot.child("productImage").getValue(String.class));
-                    product.setProductSeller(productSnapshot.child("productSeller").getValue(String.class));
-                    product.setProductSellerAddress(productSnapshot.child("productSellerAddress").getValue(String.class));
-                    if (product != null) {
-                        productList.add(product);
-                    } else {
-                        Log.e("ProductListActivity", "Product is null");
+                if(category.equals("All") && (result.equals(null) || result.equals(""))) {
+                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                        Product product = new Product();
+                        product.setProductName(productSnapshot.child("productName").getValue(String.class));
+                        product.setProductPrice(productSnapshot.child("productPrice").getValue(Integer.class));
+                        product.setProductCategory(productSnapshot.child("productCategory").getValue(String.class));
+                        product.setProductCondition(productSnapshot.child("productCondition").getValue(String.class));
+                        product.setProductDesc(productSnapshot.child("productDescription").getValue(String.class));
+                        product.setProductImage(productSnapshot.child("productImage").getValue(String.class));
+                        product.setProductSeller(productSnapshot.child("productSeller").getValue(String.class));
+                        product.setProductSellerAddress(productSnapshot.child("productSellerAddress").getValue(String.class));
+                        if (product != null) {
+                            productList.add(product);
+                        } else {
+                            Log.e("ProductListActivity", "Product is null");
+                            ImageView searchNotfoundIV = findViewById(R.id.searchNotfoundIV);
+                            TextView searchNotfoundTV = findViewById(R.id.searchNotfoundTV);
+                            searchNotfoundIV.setVisibility(View.VISIBLE);
+                            searchNotfoundTV.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else if(!category.equals("All")){
+                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                        Product product = productSnapshot.getValue(Product.class);
+                        if (product != null && product.getProductCategory().equals(category)) {
+                            productList.add(product);
+                        } else {
+                            Log.e("ProductListActivity", "Product is null");
+                            ImageView searchNotfoundIV = findViewById(R.id.searchNotfoundIV);
+                            TextView searchNotfoundTV = findViewById(R.id.searchNotfoundTV);
+                            searchNotfoundIV.setVisibility(View.VISIBLE);
+                            searchNotfoundTV.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
                 productAdapter.notifyDataSetChanged();
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

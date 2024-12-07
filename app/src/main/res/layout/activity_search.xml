@@ -8,6 +8,7 @@
     tools:context=".SearchActivity" >
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -69,5 +70,30 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/searchNotfoundIV"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:tint="#D1CFCF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_notfound" />
+
+    <TextView
+        android:id="@+id/searchNotfoundTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-16dp"
+        android:text="No Product Found"
+        android:textAlignment="textStart"
+        android:textColor="#D0CECE"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchNotfoundIV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
