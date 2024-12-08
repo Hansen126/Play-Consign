@@ -66,7 +66,8 @@
                 android:id="@+id/searchItemRV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="48dp" />
 
         </LinearLayout>
     </ScrollView>

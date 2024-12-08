@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity {
             searchResultTV.setText("You Search for " + query);
         }
 
-        String result = searchSearchView.getQuery().toString();
+        String result = searchSearchView.getQuery().toString().toLowerCase();
         fetchProductData(category, result);
 
         searchSearchView.setSubmitButtonEnabled(true);
@@ -94,8 +94,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fetchProductData(finalCategory, newText);
-                return true;
+//                fetchProductData(finalCategory, newText);
+                return false;
             }
         });
 
@@ -121,16 +121,9 @@ public class SearchActivity extends AppCompatActivity {
                         product.setProductCondition(productSnapshot.child("productCondition").getValue(String.class));
                         product.setProductDesc(productSnapshot.child("productDescription").getValue(String.class));
                         product.setProductImage(productSnapshot.child("productImage").getValue(String.class));
-                        product.setProductSeller(productSnapshot.child("productSeller").getValue(String.class));
-                        product.setProductSellerAddress(productSnapshot.child("productSellerAddress").getValue(String.class));
+                        product.setProductSellerUID(productSnapshot.child("productSellerUID").getValue(String.class));
                         if (product != null) {
                             productList.add(product);
-                        } else {
-                            Log.e("ProductListActivity", "Product is null");
-                            ImageView searchNotfoundIV = findViewById(R.id.searchNotfoundIV);
-                            TextView searchNotfoundTV = findViewById(R.id.searchNotfoundTV);
-                            searchNotfoundIV.setVisibility(View.VISIBLE);
-                            searchNotfoundTV.setVisibility(View.VISIBLE);
                         }
                     }
                 } else if(!category.equals("All")){
@@ -138,16 +131,24 @@ public class SearchActivity extends AppCompatActivity {
                         Product product = productSnapshot.getValue(Product.class);
                         if (product != null && product.getProductCategory().equals(category)) {
                             productList.add(product);
-                        } else {
-                            Log.e("ProductListActivity", "Product is null");
-                            ImageView searchNotfoundIV = findViewById(R.id.searchNotfoundIV);
-                            TextView searchNotfoundTV = findViewById(R.id.searchNotfoundTV);
-                            searchNotfoundIV.setVisibility(View.VISIBLE);
-                            searchNotfoundTV.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else if(!(result.equals(null) || result.equals(""))) {
+                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                        Product product = productSnapshot.getValue(Product.class);
+                        if (product != null && product.getProductName().toLowerCase().contains(result)) {
+                            productList.add(product);
                         }
                     }
                 }
                 productAdapter.notifyDataSetChanged();
+                if(productList.isEmpty()) {
+                    Log.e("ProductListActivity", "Product is null");
+                    ImageView searchNotfoundIV = findViewById(R.id.searchNotfoundIV);
+                    TextView searchNotfoundTV = findViewById(R.id.searchNotfoundTV);
+                    searchNotfoundIV.setVisibility(View.VISIBLE);
+                    searchNotfoundTV.setVisibility(View.VISIBLE);
+                }
             }
 
 

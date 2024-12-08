@@ -1,7 +1,6 @@
 package com.example.playconsign;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -22,6 +26,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private List<Product> productList;
     Context context;
+    DatabaseReference sellersDatabaseReference = FirebaseDatabase.getInstance().getReference("sellers");
+    Seller productSeller;
 
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
@@ -45,8 +51,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         String productCategory = productList.get(position).getProductCategory();
         String productCondition = productList.get(position).getProductCondition();
         String productDesc = productList.get(position).getProductDesc();
-        String productSeller = productList.get(position).getProductSeller();
-        String productSellerAddress = productList.get(position).getProductSellerAddress();
+        String productSellerUID = productList.get(position).getProductSellerUID();
+        Log.e("SellerDebug", "check 1!" + productSellerUID);
+        Log.e("SellerDebug", "check!");
+        sellersDatabaseReference.child(productSellerUID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Seller seller = snapshot.getValue(Seller.class);
+                if (seller != null) {
+                    holder.productSellerName.setText(seller.getShopName());
+                    holder.productSellerCityAndCountry.setText(seller.getSellerCityAndCountry());
+                } else {
+                    holder.productSellerName.setText("Unknown Seller");
+                    holder.productSellerCityAndCountry.setText("Unknown Location");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SellerFetch", "Error fetching seller data: " + error.getMessage());
+            }
+        });
 
         String newProductPrice = NumberFormat.getNumberInstance(new Locale("id", "ID")).format(productPrice);
 
@@ -54,7 +79,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productPrice.setText("Rp " + newProductPrice);
         holder.productCategory.setText(productCategory);
         holder.productCondition.setText(productCondition);
-        holder.productSeller.setText(productSeller);
         Log.d("ProductAdapter", "Image URL: " + productImage);
         Glide.with(context)
                 .load(productImage)
@@ -73,9 +97,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView productPrice;
         TextView productCategory;
         TextView productCondition;
-        TextView productDesc;
-        TextView productSeller;
-        TextView productSellerAddress;
+        TextView productSellerName;
+        TextView productSellerCityAndCountry;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.searchItemLayout_productName);
@@ -83,7 +106,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productPrice = itemView.findViewById(R.id.searchItemLayout_productPrice);
             productCategory = itemView.findViewById(R.id.searchItemLayout_productCategory);
             productCondition = itemView.findViewById(R.id.searchItemLayout_productCondition);
-            productSeller = itemView.findViewById(R.id.searchItemLayout_productSeller);
+            productSellerName = itemView.findViewById(R.id.searchItemLayout_productSellerName);
+            productSellerCityAndCountry = itemView.findViewById(R.id.searchItemLayout_productSellerCityAndCountry);
         }
     }
 }

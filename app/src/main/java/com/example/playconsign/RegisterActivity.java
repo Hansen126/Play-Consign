@@ -103,8 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
             if (task.isSuccessful()) {
                 Log.d("register", "signup success");
-                firebaseAuth.signInWithEmailAndPassword(email, password);
                 addUserToDatabase(name, email, phone, address);
+                firebaseAuth.signInWithEmailAndPassword(email, password);
             } else {
                 EditText registerEmailET = findViewById(R.id.registerEmailET);
                 registerEmailET.setError("Enter a valid email format (example@domain.com)");

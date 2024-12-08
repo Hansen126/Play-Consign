@@ -7,21 +7,20 @@ public class Product {
     String productDesc;
     String productImage;
     String productCondition;
-    String productSeller;
-    String productSellerAddress;
+    String productSellerUID;
 
     public Product() {
     }
 
-    public Product(String productName, int productPrice, String productCategory, String productCondition, String productDesc, String productImage, String productSeller, String productSellerAddress) {
+    public Product(String productName, int productPrice, String productCategory, String productCondition,
+                   String productDesc, String productImage, String productSellerUID) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCategory = productCategory;
         this.productCondition = productCondition;
         this.productDesc = productDesc;
         this.productImage = productImage;
-        this.productSeller = productSeller;
-        this.productSellerAddress = productSellerAddress;
+        this.productSellerUID = productSellerUID;
     }
 
     public String getProductName() {
@@ -72,19 +71,12 @@ public class Product {
         this.productCondition = productCondition;
     }
 
-    public String getProductSeller() {
-        return productSeller;
+    public String getProductSellerUID() {
+        return productSellerUID;
     }
 
-    public void setProductSeller(String productSeller) {
-        this.productSeller = productSeller;
-    }
-
-    public String getProductSellerAddress() {
-        return productSellerAddress;
-    }
-
-    public void setProductSellerAddress(String productSellerAddress) {
-        this.productSellerAddress = productSellerAddress;
+    public void setProductSellerUID(String productSellerUID) {
+        this.productSellerUID = productSellerUID;
     }
 }
+

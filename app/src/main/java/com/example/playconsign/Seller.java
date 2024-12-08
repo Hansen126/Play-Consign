@@ -1,27 +1,17 @@
 package com.example.playconsign;
 
 public class Seller {
-    User user;
     String IDNumber;
     String sellerCityAndCountry;
     String shopName;
 
-    public Seller(User user, String IDNumber, String sellerCityAndCountry, String shopName) {
-        this.user = user;
-        this.IDNumber = IDNumber;
-        this.sellerCityAndCountry = sellerCityAndCountry;
-        this.shopName = shopName;
-    }
-
     public Seller() {
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Seller(User user, String IDNumber, String sellerCityAndCountry, String shopName) {
+        this.IDNumber = IDNumber;
+        this.sellerCityAndCountry = sellerCityAndCountry;
+        this.shopName = shopName;
     }
 
     public String getIDNumber() {
