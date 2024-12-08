@@ -2,16 +2,16 @@ package com.example.playconsign;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.content.res.AppCompatResources;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,8 @@ public class ConsignFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
     private ActivityResultLauncher<Intent> pickImageLauncher;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -117,17 +120,27 @@ public class ConsignFragment extends Fragment {
         ImageView consignImageIV = view.findViewById(R.id.consignImageIV);
         CheckBox consignTnCCB = view.findViewById(R.id.consignTnCCB);
         Button consignButton = view.findViewById(R.id.consignSubmitButton);
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseAuth currentUser = firebaseAuth.getCurrentUser();
-        String sellerUID = currentUser.getUid();
-        String currentSellerName;
-        DatabaseReference usersDatabaseReference = FirebaseDatabase.getInstance().getReference("users");
-        usersDatabaseReference.child(sellerUID).child("name").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                String sellerName = task.getResult().getValue(String.class);
-                currentSellerName = sellerName;
-            }
-        });
+        String productSellerUID = currentUser.getUid();
+
+//        sellersDatabaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                productSeller = new Seller();
+//                productSeller.setShopName(snapshot.child(sellerUID).child("shopName").getValue(String.class));
+//                productSeller.setSellerCityAndCountry(snapshot.child(sellerUID).child("sellerCityAndCountry").getValue(String.class));
+//                productSeller.setIDNumber(snapshot.child(sellerUID).child("IDNumber").getValue(String.class));
+////                productSeller.setUser(snapshot.child(sellerUID).child("user").getValue(User.class));
+//                if (productSeller != null) {
+//                    Log.d("SellerDebug", "Seller loaded: " + productSeller.getShopName() + ", " + productSeller.getSellerCityAndCountry());
+//                } else {
+//                    Log.e("SellerDebug", "Seller is null!");
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categoryList);
         ArrayAdapter<String> conditionAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, conditionList);
@@ -188,6 +201,8 @@ public class ConsignFragment extends Fragment {
                     consignDescET.setError("Product Description Must Be Between 10 and 1000 Characters");
                 } else if (imageUri == null) {
                     Toast.makeText(getContext(), "Please select your product image", Toast.LENGTH_SHORT).show();
+                } else if (productSellerUID == null) {
+                    Toast.makeText(getContext(), "Seller information is not available yet. Please try again later.", Toast.LENGTH_SHORT).show();
                 } else if (!consignTnCCB.isChecked()) {
                     consignTnCCB.setError("Please Agree to the Terms and Conditions");
                 } else {
@@ -199,7 +214,7 @@ public class ConsignFragment extends Fragment {
                                         Integer.parseInt(consignPriceET.getText().toString()),
                                         categorySpinner.getSelectedItem().toString(),
                                         conditionSpinner.getSelectedItem().toString(),
-                                        consignDescET.getText().toString(), imageUrl);
+                                        consignDescET.getText().toString(), imageUrl, productSellerUID);
                             }
 
                             @Override
@@ -222,12 +237,14 @@ public class ConsignFragment extends Fragment {
         pickImageLauncher.launch(intent);
     }
 
-    private void addToFirebaseDatabase(String productName, int productPrice, String productCategory, String productCondition, String productDescription, String imageUrl) {
+    private void addToFirebaseDatabase(String productName, int productPrice, String productCategory,
+                                       String productCondition, String productDescription, String imageUrl,
+                                       String productSellerUID) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
         String productId = databaseReference.push().getKey();
 
         Product newProduct = new Product(productName, productPrice, productCategory,productCondition,
-                productDescription, imageUrl, "SellerTest", "SellerAddressTest");
+                productDescription, imageUrl, productSellerUID);
 
         if (productId != null) {
             databaseReference.child(productId).setValue(newProduct)
