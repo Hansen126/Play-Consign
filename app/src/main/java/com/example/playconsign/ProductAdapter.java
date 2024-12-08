@@ -60,10 +60,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 Seller seller = snapshot.getValue(Seller.class);
                 if (seller != null) {
                     holder.productSellerName.setText(seller.getShopName());
-                    holder.productSellerCityAndCountry.setText(seller.getSellerCityAndCountry());
+                    holder.productSellerDomicile.setText(seller.getSellerDomicile());
                 } else {
                     holder.productSellerName.setText("Unknown Seller");
-                    holder.productSellerCityAndCountry.setText("Unknown Location");
+                    holder.productSellerDomicile.setText("Unknown Location");
                 }
             }
 
@@ -98,7 +98,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView productCategory;
         TextView productCondition;
         TextView productSellerName;
-        TextView productSellerCityAndCountry;
+        TextView productSellerDomicile;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.searchItemLayout_productName);
@@ -107,7 +107,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productCategory = itemView.findViewById(R.id.searchItemLayout_productCategory);
             productCondition = itemView.findViewById(R.id.searchItemLayout_productCondition);
             productSellerName = itemView.findViewById(R.id.searchItemLayout_productSellerName);
-            productSellerCityAndCountry = itemView.findViewById(R.id.searchItemLayout_productSellerCityAndCountry);
+            productSellerDomicile = itemView.findViewById(R.id.searchItemLayout_productSellerDomicile);
         }
     }
 }

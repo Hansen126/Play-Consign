@@ -2,15 +2,15 @@ package com.example.playconsign;
 
 public class Seller {
     String IDNumber;
-    String sellerCityAndCountry;
+    String sellerDomicile;
     String shopName;
 
     public Seller() {
     }
 
-    public Seller(User user, String IDNumber, String sellerCityAndCountry, String shopName) {
+    public Seller(User user, String IDNumber, String sellerDomicile, String shopName) {
         this.IDNumber = IDNumber;
-        this.sellerCityAndCountry = sellerCityAndCountry;
+        this.sellerDomicile = sellerDomicile;
         this.shopName = shopName;
     }
 
@@ -22,12 +22,12 @@ public class Seller {
         this.IDNumber = IDNumber;
     }
 
-    public String getSellerCityAndCountry() {
-        return sellerCityAndCountry;
+    public String getSellerDomicile() {
+        return sellerDomicile;
     }
 
-    public void setSellerCityAndCountry(String sellerCityAndCountry) {
-        this.sellerCityAndCountry = sellerCityAndCountry;
+    public void setSellerDomicile(String sellerDomicile) {
+        this.sellerDomicile = sellerDomicile;
     }
 
     public String getShopName() {

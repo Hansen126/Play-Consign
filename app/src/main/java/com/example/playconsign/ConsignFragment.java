@@ -127,11 +127,11 @@ public class ConsignFragment extends Fragment {
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                productSeller = new Seller();
 //                productSeller.setShopName(snapshot.child(sellerUID).child("shopName").getValue(String.class));
-//                productSeller.setSellerCityAndCountry(snapshot.child(sellerUID).child("sellerCityAndCountry").getValue(String.class));
+//                productSeller.setSellerDomicile(snapshot.child(sellerUID).child("sellerDomicile").getValue(String.class));
 //                productSeller.setIDNumber(snapshot.child(sellerUID).child("IDNumber").getValue(String.class));
 ////                productSeller.setUser(snapshot.child(sellerUID).child("user").getValue(User.class));
 //                if (productSeller != null) {
-//                    Log.d("SellerDebug", "Seller loaded: " + productSeller.getShopName() + ", " + productSeller.getSellerCityAndCountry());
+//                    Log.d("SellerDebug", "Seller loaded: " + productSeller.getShopName() + ", " + productSeller.getSellerDomicile());
 //                } else {
 //                    Log.e("SellerDebug", "Seller is null!");
 //                }

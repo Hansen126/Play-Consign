@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+
         binding.mainBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
