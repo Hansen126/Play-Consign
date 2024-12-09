@@ -122,26 +122,6 @@ public class ConsignFragment extends Fragment {
         Button consignButton = view.findViewById(R.id.consignSubmitButton);
         String productSellerUID = currentUser.getUid();
 
-//        sellersDatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                productSeller = new Seller();
-//                productSeller.setShopName(snapshot.child(sellerUID).child("shopName").getValue(String.class));
-//                productSeller.setSellerDomicile(snapshot.child(sellerUID).child("sellerDomicile").getValue(String.class));
-//                productSeller.setIDNumber(snapshot.child(sellerUID).child("IDNumber").getValue(String.class));
-////                productSeller.setUser(snapshot.child(sellerUID).child("user").getValue(User.class));
-//                if (productSeller != null) {
-//                    Log.d("SellerDebug", "Seller loaded: " + productSeller.getShopName() + ", " + productSeller.getSellerDomicile());
-//                } else {
-//                    Log.e("SellerDebug", "Seller is null!");
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categoryList);
         ArrayAdapter<String> conditionAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, conditionList);
 

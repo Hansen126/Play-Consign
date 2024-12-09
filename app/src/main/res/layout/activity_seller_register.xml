@@ -7,4 +7,184 @@
     android:layout_height="match_parent"
     tools:context=".SellerRegisterActivity">
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/sellerRegisterMaroonIV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-24dp"
+                app:srcCompat="@drawable/ic_maroonbg" />
+
+            <ImageView
+                android:id="@+id/sellerRegisterBackButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-160dp"
+                app:srcCompat="@drawable/ic_arrow_back_white" />
+
+            <TextView
+                android:id="@+id/sellerRegisterRegisterTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="16dp"
+                android:text="Seller"
+                android:textColor="#FFFFFF"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sellerRegisterRegister2TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="41dp"
+                android:text="Register as a Seller in Play Consign"
+                android:textColor="#FCF5FD" />
+
+            <TextView
+                android:id="@+id/sellerRegisterShopNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="52dp"
+                android:text="Shop Name"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sellerRegisterShopNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your name"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/sellerRegisterIDNumberTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="ID Number"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sellerRegisterIDNumberET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your ID number"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/sellerRegisterCityTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="City"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sellerRegisterCityET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="input your city"
+                android:inputType="textMultiLine"
+                android:maxLines="2"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/sellerRegisterProvinceyTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Province"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sellerRegisterProvinceET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your Province"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/sellerRegisterCountryTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Country"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sellerRegisterCountryET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-8dp"
+                android:ems="10"
+                android:hint="input your country"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/sellerRegisterTnCCB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="By checking this, I confirmed that I agree to the" />
+
+            <TextView
+                android:id="@+id/sellerRegisterTnCTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="52dp"
+                android:layout_marginTop="-16dp"
+                android:text="Terms and Conditions"
+                android:textColor="#03A9F4" />
+
+            <Button
+                android:id="@+id/sellerRegisterSubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="100dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#9D1E1E"
+                android:text="Register"
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

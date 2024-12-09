@@ -2,6 +2,7 @@ package com.example.playconsign;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -18,13 +19,19 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.playconsign.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    boolean checkSeller = false;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +46,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("sellers");
+        if(firebaseAuth.getCurrentUser() != null) {
+            Log.e("Miantest", firebaseAuth.getCurrentUser().getUid() + checkSeller);
+            String currentUID = firebaseAuth.getCurrentUser().getUid();
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(currentUID).exists()) {
+                        checkSeller = true;
+                    }
+                    navBarClickAction();
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            navBarClickAction();
+        }
+    }
+
+    private void navBarClickAction() {
         binding.mainBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 int selectedId = item.getItemId();
                 if(selectedId == R.id.mainHomeMenu){
                     switchFragment(new HomeFragment());
@@ -53,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(homeIntent);
                         startActivity(intent);
+                    } else if (checkSeller == false) {
+                        Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                        Intent registerSellerintent = new Intent(MainActivity.this, SellerRegisterActivity.class);
+                        startActivity(homeIntent);
+                        startActivity(registerSellerintent);
                     } else {
                         switchFragment(new ConsignFragment());
                     }
@@ -69,10 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
-
     private void switchFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

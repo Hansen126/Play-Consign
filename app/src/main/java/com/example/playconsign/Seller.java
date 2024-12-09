@@ -8,7 +8,7 @@ public class Seller {
     public Seller() {
     }
 
-    public Seller(User user, String IDNumber, String sellerDomicile, String shopName) {
+    public Seller(String IDNumber, String sellerDomicile, String shopName) {
         this.IDNumber = IDNumber;
         this.sellerDomicile = sellerDomicile;
         this.shopName = shopName;
