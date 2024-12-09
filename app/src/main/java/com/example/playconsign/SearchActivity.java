@@ -48,8 +48,6 @@ public class SearchActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent homeIntent = new Intent(v.getContext(), MainActivity.class);
-//                v.getContext().startActivity(homeIntent);
                 finish();
             }
         });

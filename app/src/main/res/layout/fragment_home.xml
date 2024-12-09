@@ -6,81 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <LinearLayout
-        android:id="@+id/homeLinearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainTV1">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/homeNameTV"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/homeLinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Hello,"
-            android:textColor="#9E1E1E"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/mainTV1">
 
-        <TextView
-            android:id="@+id/homeTV1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Welcome to Play Consign."
-            android:textColor="#AFAFAF"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainNameTV" />
+            <TextView
+                android:id="@+id/homeNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Hello,"
+                android:textColor="#9E1E1E"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <SearchView
-            android:id="@+id/homeSearchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/ic_searchview_outline"
-            android:backgroundTint="@null"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search an Item"
-            android:searchIcon="@drawable/ic_search" />
+            <TextView
+                android:id="@+id/homeTV1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Welcome to Play Consign."
+                android:textColor="#AFAFAF"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainNameTV" />
 
-        <TextView
-            android:id="@+id/homeCategoryTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Product Category"
-            android:textColor="#9E1E1E"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <SearchView
+                android:id="@+id/homeSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_searchview_outline"
+                android:backgroundTint="@null"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:queryHint="Search an Item"
+                android:searchIcon="@drawable/ic_search" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeCategoryRV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/homeCategoryTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Product Category"
+                android:textColor="#9E1E1E"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/homeExploreButton"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#9C1E1E"
-            android:text="Explore"
-            android:textColor="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textSize="24sp"
-            app:cornerRadius="8dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeCategoryRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="320dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="40dp"
+                app:cardCornerRadius="16dp">
+
+                <ImageView
+                    android:id="@+id/homeExploreIV"
+                    android:layout_width="320dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_explore2" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Explore"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

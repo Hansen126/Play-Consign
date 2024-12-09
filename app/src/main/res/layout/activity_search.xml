@@ -37,6 +37,7 @@
                 android:background="@drawable/ic_searchview_outline"
                 android:iconifiedByDefault="false"
                 android:layoutMode="clipBounds"
+                android:queryBackground="@null"
                 android:queryHint="Search an Item"
                 android:searchIcon="@drawable/ic_search">
 

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -131,8 +132,8 @@ public class HomeFragment extends Fragment {
             homeNameTV.setText("Hello, Guest");
         }
 
-        Button homeExploreButton = view.findViewById(R.id.homeExploreButton);
-        homeExploreButton.setOnClickListener(new View.OnClickListener() {
+        ImageView homeExploreIV = view.findViewById(R.id.homeExploreIV);
+        homeExploreIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent searchIntent = new Intent(view.getContext(), SearchActivity.class);

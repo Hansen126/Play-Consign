@@ -110,10 +110,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="-8dp"
                 android:ems="10"
-                android:gravity="start|top"
                 android:hint="input your city"
-                android:inputType="textMultiLine"
-                android:maxLines="2"
+                android:inputType="text"
                 android:textSize="16sp" />
 
             <TextView

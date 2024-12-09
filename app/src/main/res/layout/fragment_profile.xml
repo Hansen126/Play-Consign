@@ -74,13 +74,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="128dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/archivo" />
 
             <LinearLayout
                 android:id="@+id/profileSellerLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/ic_searchview_outline"
                 android:backgroundTint="#9B1E1E"
                 android:orientation="vertical"
