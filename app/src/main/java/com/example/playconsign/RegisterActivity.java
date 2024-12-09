@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText registerNameET = findViewById(R.id.registerNameET);
         EditText registerEmailET = findViewById(R.id.registerEmailET);
         EditText registerPasswordET = findViewById(R.id.registerPasswordET);
+        EditText registerConfirmPasswordET = findViewById(R.id.registerConfirmPasswordET);
         EditText registerPhoneET = findViewById(R.id.registerPhoneET);
         EditText registerAddressET = findViewById(R.id.registerAddressET);
         CheckBox registerTnCCB = findViewById(R.id.registerTnCCB);
@@ -70,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String name = registerNameET.getText().toString();
                 String email = registerEmailET.getText().toString();
                 String password = registerPasswordET.getText().toString();
+                String confirmPassword = registerConfirmPasswordET.getText().toString();
                 String phone = registerPhoneET.getText().toString();
                 String address = registerAddressET.getText().toString();
 
@@ -89,6 +91,8 @@ public class RegisterActivity extends AppCompatActivity {
                     registerAddressET.setError("Address cannot be empty");
                 } else if(!registerTnCCB.isChecked()) {
                     registerTnCCB.setError("You must agree to the terms and conditions");
+                } else if(!password.equals(confirmPassword)) {
+                    registerPasswordET.setError("Passwords do not match");
                 } else {
                     signUpUser(name, email, phone, address, password);
                     Toast.makeText(RegisterActivity.this, "Signup Success", Toast.LENGTH_SHORT).show();
