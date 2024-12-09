@@ -127,6 +127,8 @@ public class HomeFragment extends Fragment {
                 }
             });
 
+        } else {
+            homeNameTV.setText("Hello, Guest");
         }
 
         Button homeExploreButton = view.findViewById(R.id.homeExploreButton);

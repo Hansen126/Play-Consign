@@ -86,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="72dp"
         android:text="Seller"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

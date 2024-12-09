@@ -6,48 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <TextView
-        android:id="@+id/homeNameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Hello, Guest!"
-        android:textColor="#9E1E1E"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/homeTV1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="64dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Welcome to Play Consign."
-        android:textColor="#AFAFAF"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainNameTV" />
-
     <LinearLayout
         android:id="@+id/homeLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainTV1">
 
+        <TextView
+            android:id="@+id/homeNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Hello,"
+            android:textColor="#9E1E1E"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/homeTV1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Welcome to Play Consign."
+            android:textColor="#AFAFAF"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainNameTV" />
+
         <SearchView
             android:id="@+id/homeSearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/ic_searchview_outline"
             android:backgroundTint="@null"
@@ -74,8 +73,8 @@
             android:id="@+id/homeExploreButton"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#9D1E1E"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#9C1E1E"
             android:text="Explore"
             android:textColor="#FFFFFF"
             android:textColorLink="#FFFFFF"
