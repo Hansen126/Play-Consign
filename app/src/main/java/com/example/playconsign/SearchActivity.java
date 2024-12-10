@@ -2,6 +2,7 @@ package com.example.playconsign;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -100,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
 
         RecyclerView productRV = findViewById(R.id.searchItemRV);
         productAdapter = new ProductAdapter(productList);
-        productRV.setLayoutManager(new GridLayoutManager(this, 2));
+        productRV.setLayoutManager(new GridLayoutManager(this, calculateSpanCount()));
         productRV.setAdapter(productAdapter);
 
     }
@@ -117,7 +118,7 @@ public class SearchActivity extends AppCompatActivity {
                         product.setProductPrice(productSnapshot.child("productPrice").getValue(Integer.class));
                         product.setProductCategory(productSnapshot.child("productCategory").getValue(String.class));
                         product.setProductCondition(productSnapshot.child("productCondition").getValue(String.class));
-                        product.setProductDesc(productSnapshot.child("productDescription").getValue(String.class));
+                        product.setProductDesc(productSnapshot.child("productDesc").getValue(String.class));
                         product.setProductImage(productSnapshot.child("productImage").getValue(String.class));
                         product.setProductSellerUID(productSnapshot.child("productSellerUID").getValue(String.class));
                         if (product != null) {
@@ -156,5 +157,12 @@ public class SearchActivity extends AppCompatActivity {
                 Log.e("ProductListActivity", "Failed to read data", error.toException());
             }
         });
+    }
+
+    private int calculateSpanCount() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
+        float itemWidthDp = 180;
+        return Math.max(1, (int) (screenWidthDp / itemWidthDp));
     }
 }

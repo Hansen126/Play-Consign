@@ -1,7 +1,10 @@
 package com.example.playconsign;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
+
         String productName = productList.get(position).getProductName();
         String productImage = productList.get(position).getProductImage();
         int productPrice = productList.get(position).getProductPrice();
@@ -52,7 +57,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         String productCondition = productList.get(position).getProductCondition();
         String productDesc = productList.get(position).getProductDesc();
         String productSellerUID = productList.get(position).getProductSellerUID();
-        Log.e("SellerDebug", "check 1!" + productSellerUID);
+
+        int screenWidthDp = getScreenWidthInDp(holder.itemView.getContext());
+        Pair<Integer, Integer> dimensions = calculateDynamicSize(screenWidthDp);
+
+        int dynamicWidthPx = Math.round(dimensions.first * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+        int dynamicHeightPx = Math.round(dimensions.second * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        layoutParams.width = dynamicWidthPx;
+        layoutParams.height = dynamicHeightPx;
+        holder.itemView.setLayoutParams(layoutParams);
+
+        Log.e("SellerDebug", "check 1!" + productDesc);
         Log.e("SellerDebug", "check!");
         sellersDatabaseReference.child(productSellerUID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,6 +101,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .load(productImage)
                 .placeholder(R.drawable.ic_image)
                 .into(holder.productImage);
+
+        holder.searchItemLayout_productCL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productName", productName);
+                intent.putExtra("productImage", productImage);
+                intent.putExtra("productPrice", newProductPrice);
+                intent.putExtra("productCategory", productCategory);
+                intent.putExtra("productCondition", productCondition);
+                intent.putExtra("productDesc", productDesc);
+                intent.putExtra("productSellerUID", productSellerUID);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -99,6 +132,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView productCondition;
         TextView productSellerName;
         TextView productSellerDomicile;
+        ConstraintLayout searchItemLayout_productCL;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.searchItemLayout_productName);
@@ -108,6 +142,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productCondition = itemView.findViewById(R.id.searchItemLayout_productCondition);
             productSellerName = itemView.findViewById(R.id.searchItemLayout_productSellerName);
             productSellerDomicile = itemView.findViewById(R.id.searchItemLayout_productSellerDomicile);
+            searchItemLayout_productCL = itemView.findViewById(R.id.searchItemLayout_productCL);
         }
+    }
+    private Pair<Integer, Integer> calculateDynamicSize(int screenWidthDp) {
+        int baseWidth = 180;
+        int baseHeight = 384;
+        int maxScreenWidth = 427;
+
+        int dynamicWidth = Math.max(1, baseWidth - (maxScreenWidth - screenWidthDp));
+        int dynamicHeight = Math.max(1, baseHeight - (maxScreenWidth - screenWidthDp));
+
+        return new Pair<>(dynamicWidth, dynamicHeight);
+    }
+
+    private int getScreenWidthInDp(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(displayMetrics.widthPixels / displayMetrics.density);
     }
 }
