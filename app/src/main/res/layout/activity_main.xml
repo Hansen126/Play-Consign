@@ -22,6 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainFCV"
         app:menu="@menu/main_bottom_nav_menu" />
 
     <androidx.fragment.app.FragmentContainerView

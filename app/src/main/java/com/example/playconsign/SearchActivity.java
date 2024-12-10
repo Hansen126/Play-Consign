@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,10 @@ public class SearchActivity extends AppCompatActivity {
     private List<Product> productList = new ArrayList<>();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference("products");
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     ProductAdapter productAdapter;
+    String UID = null;
+    String category = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         Intent getIntent = getIntent();
-        String category = getIntent.getStringExtra("category");
+        category = getIntent.getStringExtra("category");
         if (category == null) {
             category = "All";
         }
@@ -62,6 +66,13 @@ public class SearchActivity extends AppCompatActivity {
         if (query == null) {
             query = "";
         }
+        UID = getIntent.getStringExtra("SellerProduct");
+        if(firebaseAuth.getCurrentUser() != null) {
+            if(UID != null && UID.equals(firebaseAuth.getCurrentUser().getUid())) {
+
+            }
+        }
+
 
         SearchView searchSearchView = findViewById(R.id.searchSearchView);
         TextView searchCategoryTV = findViewById(R.id.searchCategoryTV);
@@ -71,10 +82,13 @@ public class SearchActivity extends AppCompatActivity {
         searchCategoryTV.setText("Category: " + category);
         if(searchSearchView.getQuery().equals("") || query.equals("")) {
             searchResultTV.setText("");
+            searchResultTV.setVisibility(View.GONE);
         } else if(searchSearchView.getQuery().equals("") || searchSearchView.getQuery() != null){
             searchResultTV.setText("You Search for " + (CharSequence) searchSearchView.getQuery());
+            searchResultTV.setVisibility(View.VISIBLE);
         } else if(!query.equals("") || query != null) {
             searchResultTV.setText("You Search for " + query);
+            searchResultTV.setVisibility(View.VISIBLE);
         }
 
         String result = searchSearchView.getQuery().toString().toLowerCase();
@@ -87,6 +101,8 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 Intent searchIntent = new Intent(SearchActivity.this, SearchActivity.class);
                 searchIntent.putExtra("query", query);
+                searchIntent.putExtra("category", category);
+                searchIntent.putExtra("SellerProduct", UID);
                 startActivity(searchIntent);
                 return true;
             }
@@ -111,35 +127,69 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 productList.clear();
-                if(category.equals("All") && (result.equals(null) || result.equals(""))) {
-                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                        Product product = new Product();
-                        product.setProductName(productSnapshot.child("productName").getValue(String.class));
-                        product.setProductPrice(productSnapshot.child("productPrice").getValue(Integer.class));
-                        product.setProductCategory(productSnapshot.child("productCategory").getValue(String.class));
-                        product.setProductCondition(productSnapshot.child("productCondition").getValue(String.class));
-                        product.setProductDesc(productSnapshot.child("productDesc").getValue(String.class));
-                        product.setProductImage(productSnapshot.child("productImage").getValue(String.class));
-                        product.setProductSellerUID(productSnapshot.child("productSellerUID").getValue(String.class));
-                        if (product != null) {
-                            productList.add(product);
+                if(UID != null) {
+                    if(category.equals("All") && (result.equals(null) || result.equals(""))) {
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && UID.equals(product.getProductSellerUID())) {
+                                productList.add(product);
+                            }
+                        }
+                    } else if(!category.equals("All") && !(result.equals(null) || result.equals(""))){
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && product.getProductCategory().equals(category) && product.getProductName().toLowerCase().contains(result) && UID.equals(product.getProductSellerUID())) {
+                                productList.add(product);
+                            }
+                        }
+                    } else if(!(result.equals(null) || result.equals(""))) {
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && product.getProductName().toLowerCase().contains(result) && UID.equals(product.getProductSellerUID())) {
+                                productList.add(product);
+                            }
+                        }
+                    } else if(!category.equals("All")){
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && product.getProductCategory().equals(category) && UID.equals(product.getProductSellerUID())) {
+                                productList.add(product);
+                            }
                         }
                     }
-                } else if(!category.equals("All")){
-                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                        Product product = productSnapshot.getValue(Product.class);
-                        if (product != null && product.getProductCategory().equals(category)) {
-                            productList.add(product);
+                } else {
+                    if(category.equals("All") && (result.equals(null) || result.equals(""))) {
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null ) {
+
+                                productList.add(product);
+                            }
                         }
-                    }
-                } else if(!(result.equals(null) || result.equals(""))) {
-                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                        Product product = productSnapshot.getValue(Product.class);
-                        if (product != null && product.getProductName().toLowerCase().contains(result)) {
-                            productList.add(product);
+                    } else if(!category.equals("All") && !(result.equals(null) || result.equals(""))){
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && product.getProductCategory().equals(category) && product.getProductName().toLowerCase().contains(result)) {
+                                productList.add(product);
+                            }
+                        }
+                    } else if(!(result.equals(null) || result.equals(""))) {
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && product.getProductName().toLowerCase().contains(result)) {
+                                productList.add(product);
+                            }
+                        }
+                    } else if(!category.equals("All")){
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            if (product != null && product.getProductCategory().equals(category)) {
+                                productList.add(product);
+                            }
                         }
                     }
                 }
+
                 productAdapter.notifyDataSetChanged();
                 if(productList.isEmpty()) {
                     Log.e("ProductListActivity", "Product is null");

@@ -28,13 +28,6 @@
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_image" />
 
-                <ImageView
-                    android:id="@+id/detailLogoutIV"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    app:srcCompat="@drawable/ic_arrow_back" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
@@ -49,14 +42,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/archivo"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/detailProductNameTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/archivo"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -73,24 +66,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/archivo" />
-
-                <TextView
-                    android:id="@+id/detailProductTV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/archivo"
-                    android:text="Description"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
-                <TextView
-                    android:id="@+id/detailProductDescriptionTV"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/archivo" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/ic_searchview_outline"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/detailProductTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="28dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/archivo"
+                        android:text="Description"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailProductDescriptionTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="@font/archivo" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/profileSellerLL"
@@ -122,7 +127,7 @@
                         app:cardCornerRadius="100dp">
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/detailProductSellerProfilePictureIV"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:srcCompat="@drawable/ic_person" />
@@ -172,7 +177,8 @@
                         app:cornerRadius="8dp"
                         app:icon="@drawable/ic_contact"
                         app:iconGravity="textStart"
-                        app:iconTint="#FFFFFF" />
+                        app:iconTint="#FFFFFF"
+                        app:rippleColor="#9D1E1E" />
 
                 </LinearLayout>
 
@@ -204,7 +210,16 @@
             app:cornerRadius="8dp"
             app:icon="@drawable/ic_contact"
             app:iconGravity="textStart"
-            app:iconTint="#9D1E1E" />
+            app:iconTint="#9D1E1E"
+            app:rippleColor="#9D1E1E" />
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/detailLogoutIV"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
