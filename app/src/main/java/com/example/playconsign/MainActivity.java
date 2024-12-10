@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     boolean checkSeller = false;
+    boolean checkUser = false;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -45,9 +46,22 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        DatabaseReference usersDatabaseReference = FirebaseDatabase.getInstance().getReference("users");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("sellers");
         if(firebaseAuth.getCurrentUser() != null) {
+            usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(firebaseAuth.getCurrentUser().getUid()).exists()) {
+                        checkUser = true;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
             Log.e("Miantest", firebaseAuth.getCurrentUser().getUid() + checkSeller);
             String currentUID = firebaseAuth.getCurrentUser().getUid();
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -92,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (selectedId == R.id.mainProfileMenu) {
                     if(firebaseAuth.getCurrentUser() == null) {
+                        Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(homeIntent);
+                        startActivity(intent);
+                    } else if(checkUser == false) {
                         Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(homeIntent);

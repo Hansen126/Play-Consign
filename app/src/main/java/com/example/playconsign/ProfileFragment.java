@@ -1,9 +1,6 @@
 package com.example.playconsign;
 
-import static android.view.View.GONE;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -97,10 +94,20 @@ public class ProfileFragment extends Fragment {
         TextView profileSellerUpdateTV = view.findViewById(R.id.profileSellerUpdateTV);
         Button profileTransactionButton = view.findViewById(R.id.profileTransactionButton);
         LinearLayout profileSellerLL = view.findViewById(R.id.profileSellerLL);
-
+        Button profileProductButton = view.findViewById(R.id.profileProductButton);
+        Button profileUpdateButton = view.findViewById(R.id.profileUpdateButton);
 
 
         if(currentUser != null) {
+
+            profileUpdateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent updateProfileintent = new Intent(getActivity(), UpdateProfileActivity.class);
+                    startActivity(updateProfileintent);
+                }
+            });
+
             String UID = currentUser.getUid();
 
             profileLogoutIV.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +146,14 @@ public class ProfileFragment extends Fragment {
                         Seller seller = snapshot.child(UID).getValue(Seller.class);
                         profileSellerShopNameTV.setText(seller.getShopName());
                         profileSellerDomicileTV.setText(seller.getSellerDomicile());
+                        profileProductButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent productIntent = new Intent(getActivity(), SearchActivity.class);
+                                productIntent.putExtra("SellerProduct", currentUser.getUid());
+                                startActivity(productIntent);
+                            }
+                        });
                     }
                 }
 

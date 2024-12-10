@@ -59,15 +59,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         String productSellerUID = productList.get(position).getProductSellerUID();
 
         int screenWidthDp = getScreenWidthInDp(holder.itemView.getContext());
-        Pair<Integer, Integer> dimensions = calculateDynamicSize(screenWidthDp);
+        if(screenWidthDp < 427) {
+            Pair<Integer, Integer> dimensions = calculateDynamicSize(screenWidthDp);
 
-        int dynamicWidthPx = Math.round(dimensions.first * holder.itemView.getContext().getResources().getDisplayMetrics().density);
-        int dynamicHeightPx = Math.round(dimensions.second * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+            int dynamicWidthPx = Math.round(dimensions.first * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+            int dynamicHeightPx = Math.round(dimensions.second * holder.itemView.getContext().getResources().getDisplayMetrics().density);
 
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        layoutParams.width = dynamicWidthPx;
-        layoutParams.height = dynamicHeightPx;
-        holder.itemView.setLayoutParams(layoutParams);
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            layoutParams.width = dynamicWidthPx;
+            layoutParams.height = dynamicHeightPx;
+            holder.itemView.setLayoutParams(layoutParams);
+        }
+
 
         Log.e("SellerDebug", "check 1!" + productDesc);
         Log.e("SellerDebug", "check!");
@@ -150,11 +153,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         int baseHeight = 384;
         int maxScreenWidth = 427;
 
-        int dynamicWidth = Math.max(1, baseWidth - (maxScreenWidth - screenWidthDp));
-        int dynamicHeight = Math.max(1, baseHeight - (maxScreenWidth - screenWidthDp));
+        float scaleFactor = Math.max(0.5f, (float) screenWidthDp / maxScreenWidth);
+
+        int dynamicWidth = Math.round(baseWidth * scaleFactor);
+        int dynamicHeight = Math.round(baseHeight * scaleFactor);
 
         return new Pair<>(dynamicWidth, dynamicHeight);
     }
+
 
     private int getScreenWidthInDp(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();

@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        android:backgroundTint="#FFFFFF">
+        android:layout_marginVertical="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,8 +73,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="128dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/archivo" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="#9D1E1E"
+                app:cardCornerRadius="16dp">
+
+                <Button
+                    android:id="@+id/profileUpdateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Update Profile"
+                    android:textAlignment="viewStart"
+                    android:textColor="#FFFFFF"
+                    app:icon="@drawable/ic_draw"
+                    app:iconGravity="textStart"
+                    app:iconSize="24dp"
+                    app:iconTint="#FFFFFF" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="#9D1E1E"
+                app:cardCornerRadius="16dp">
+
+                <Button
+                    android:id="@+id/profileTransactionButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Transaction List"
+                    android:textAlignment="viewStart"
+                    android:textColor="#FFFFFF"
+                    app:icon="@drawable/ic_bag"
+                    app:iconGravity="textStart"
+                    app:iconSize="24dp"
+                    app:iconTint="#FFFFFF" />
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:id="@+id/profileSellerLL"
@@ -92,10 +135,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="28dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="12dp"
                     android:fontFamily="@font/archivo"
-                    android:text="Seller"
+                    android:text="Seller Profile"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -115,6 +158,29 @@
                     android:layout_marginBottom="12dp"
                     android:fontFamily="@font/archivo" />
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#9D1E1E"
+                    app:cardCornerRadius="16dp">
+
+                    <Button
+                        android:id="@+id/profileProductButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Product List"
+                        android:textAlignment="viewStart"
+                        android:textColor="#FFFFFF"
+                        app:icon="@drawable/ic_transaction"
+                        app:iconGravity="textStart"
+                        app:iconSize="24dp"
+                        app:iconTint="#FFFFFF" />
+                </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/profileSellerUpdateTV"
                     android:layout_width="wrap_content"
@@ -122,27 +188,13 @@
                     android:layout_gravity="right"
                     android:layout_marginHorizontal="12dp"
                     android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/tilt_warp"
                     android:text="Update Seller Information"
-                    android:textColor="#9A1E1E"
-                    android:textStyle="bold" />
+                    android:textAllCaps="false"
+                    android:textColor="#9A1E1E" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/profileTransactionButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#0A000000"
-                android:text="Transaction List"
-                android:textAlignment="viewStart"
-                android:textColor="#9B1E1E"
-                app:cornerRadius="8dp"
-                app:icon="@drawable/ic_transaction"
-                app:iconGravity="textStart"
-                app:iconSize="24dp"
-                app:iconTint="#9B1E1E" />
         </LinearLayout>
     </ScrollView>
 

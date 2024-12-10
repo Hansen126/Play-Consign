@@ -177,8 +177,8 @@ public class ConsignFragment extends Fragment {
                     Toast.makeText(getContext(), "Please Select Your Product Condition", Toast.LENGTH_SHORT).show();
                 } else if(consignDescET.getText().toString().isEmpty()) {
                     consignDescET.setError("Please Enter Your Product Description");
-                } else if(consignDescET.getText().toString().length() < 10 || consignDescET.getText().toString().length() > 1000) {
-                    consignDescET.setError("Product Description Must Be Between 10 and 1000 Characters");
+                } else if(consignDescET.getText().toString().length() < 10 || consignDescET.getText().toString().length() > 5000) {
+                    consignDescET.setError("Product Description Must Be Atleast 10 and 5000 Characters");
                 } else if (imageUri == null) {
                     Toast.makeText(getContext(), "Please select your product image", Toast.LENGTH_SHORT).show();
                 } else if (productSellerUID == null) {
