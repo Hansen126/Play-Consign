@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     Context context;
     DatabaseReference sellersDatabaseReference = FirebaseDatabase.getInstance().getReference("sellers");
     Seller productSeller;
+    String productSellerPhone;
 
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
@@ -59,18 +61,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         String productSellerUID = productList.get(position).getProductSellerUID();
 
         int screenWidthDp = getScreenWidthInDp(holder.itemView.getContext());
-        if(screenWidthDp < 427) {
+        if (screenWidthDp != 427) {
             Pair<Integer, Integer> dimensions = calculateDynamicSize(screenWidthDp);
 
             int dynamicWidthPx = Math.round(dimensions.first * holder.itemView.getContext().getResources().getDisplayMetrics().density);
             int dynamicHeightPx = Math.round(dimensions.second * holder.itemView.getContext().getResources().getDisplayMetrics().density);
 
-            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-            layoutParams.width = dynamicWidthPx;
-            layoutParams.height = dynamicHeightPx;
-            holder.itemView.setLayoutParams(layoutParams);
+            ViewGroup.LayoutParams layoutParams = holder.cardView.getLayoutParams();
+            layoutParams.width = holder.searchItemLayout_productCL.getWidth();
+            holder.cardView.setLayoutParams(layoutParams);
         }
-
 
         Log.e("SellerDebug", "check 1!" + productDesc);
         Log.e("SellerDebug", "check!");
@@ -136,6 +136,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView productSellerName;
         TextView productSellerDomicile;
         ConstraintLayout searchItemLayout_productCL;
+        CardView cardView;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.searchItemLayout_productName);
@@ -146,6 +147,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productSellerName = itemView.findViewById(R.id.searchItemLayout_productSellerName);
             productSellerDomicile = itemView.findViewById(R.id.searchItemLayout_productSellerDomicile);
             searchItemLayout_productCL = itemView.findViewById(R.id.searchItemLayout_productCL);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
     private Pair<Integer, Integer> calculateDynamicSize(int screenWidthDp) {

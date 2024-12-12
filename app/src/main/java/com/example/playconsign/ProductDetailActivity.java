@@ -1,10 +1,13 @@
 package com.example.playconsign;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -47,6 +50,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         TextView detailProductConditionTV = findViewById(R.id.detailProductConditionTV);
         TextView detailProductDescriptionTV = findViewById(R.id.detailProductDescriptionTV);
         Button detailContactSellerButton = findViewById(R.id.detailContactSellerButton);
+        Button detailContactSellerButton2 = findViewById(R.id.detailContactSellerButton2);
         TextView detailProductSellerShopNameTV = findViewById(R.id.detailProductSellerShopNameTV);
         TextView detailProductSellerDomicileTV = findViewById(R.id.detailProductSellerDomicileTV);
         TextView detailProductSellerPhoneTV = findViewById(R.id.detailProductSellerPhoneTV);
@@ -90,7 +94,36 @@ public class ProductDetailActivity extends AppCompatActivity {
         usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                detailProductSellerPhoneTV.setText(snapshot.child(productSellerUID).child("phone").getValue(String.class));
+                String sellerPhone = snapshot.child(productSellerUID).child("phone").getValue(String.class);
+                detailProductSellerPhoneTV.setText(sellerPhone);
+                detailContactSellerButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String sellerPhoneNumber = "+62" + sellerPhone;
+                        String message = "Hello, I'm interested in your product. Can i ask about " + productName + "?";
+                        try {
+                            Intent whatsappIntent = new Intent(Intent.ACTION_VIEW);
+                            whatsappIntent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + sellerPhoneNumber + "&text=" + Uri.encode(message)));
+                            startActivity(whatsappIntent);
+                        } catch (Exception e) {
+                            Toast.makeText(ProductDetailActivity.this, "WhatsApp is not installed on this device.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                detailContactSellerButton2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String sellerPhoneNumber = "+62" + sellerPhone;
+                        String message = "Hello, I'm interested in your product. Can i ask about " + productName + "?";
+                        try {
+                            Intent whatsappIntent = new Intent(Intent.ACTION_VIEW);
+                            whatsappIntent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + sellerPhoneNumber + "&text=" + Uri.encode(message)));
+                            startActivity(whatsappIntent);
+                        } catch (Exception e) {
+                            Toast.makeText(ProductDetailActivity.this, "WhatsApp is not installed on this device.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
             @Override
