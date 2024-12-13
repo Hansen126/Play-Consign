@@ -92,13 +92,26 @@ public class ProfileFragment extends Fragment {
         TextView profileSellerShopNameTV = view.findViewById(R.id.profileSellerShopNameTV);
         TextView profileSellerDomicileTV = view.findViewById(R.id.profileSellerDomicileTV);
         TextView profileSellerUpdateTV = view.findViewById(R.id.profileSellerUpdateTV);
-        Button profileTransactionButton = view.findViewById(R.id.profileTransactionButton);
         LinearLayout profileSellerLL = view.findViewById(R.id.profileSellerLL);
         Button profileProductButton = view.findViewById(R.id.profileProductButton);
         Button profileUpdateButton = view.findViewById(R.id.profileUpdateButton);
+        Button profileChangePassButton = view.findViewById(R.id.profileChangePassButton);
 
 
         if(currentUser != null) {
+
+            profileChangePassButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    firebaseAuth.sendPasswordResetEmail(currentUser.getEmail()).addOnCompleteListener(task -> {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Password reset email sent to " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
 
             profileUpdateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,13 +184,6 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            profileTransactionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent transactionIntent = new Intent(getActivity(), TransactionActivity.class);
-                    startActivity(transactionIntent);
-                }
-            });
         } else {
             Toast.makeText(getContext(), "Please Login First", Toast.LENGTH_SHORT).show();
             Intent loginIntent = new Intent(getActivity(), LoginActivity.class);

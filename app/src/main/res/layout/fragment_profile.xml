@@ -102,20 +102,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"
                 app:cardBackgroundColor="#9D1E1E"
                 app:cardCornerRadius="16dp">
 
                 <Button
-                    android:id="@+id/profileTransactionButton"
+                    android:id="@+id/profileChangePassButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
                     android:backgroundTint="@android:color/transparent"
-                    android:text="Transaction List"
+                    android:text="Change Password"
                     android:textAlignment="viewStart"
                     android:textColor="#FFFFFF"
-                    app:icon="@drawable/ic_bag"
+                    app:icon="@drawable/ic_password"
                     app:iconGravity="textStart"
                     app:iconSize="24dp"
                     app:iconTint="#FFFFFF" />
