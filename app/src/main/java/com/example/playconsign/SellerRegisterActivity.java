@@ -89,9 +89,11 @@ public class SellerRegisterActivity extends AppCompatActivity {
                     sellerRegisterTnCCB.setError("Please Agree to the terms and conditions");
                 } else {
                     String domicile = city + ", " + province + ", " + country;
+                    Intent intent = new Intent(SellerRegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
                     addToDatabase(shopName, IDNumber, domicile);
-//                    Toast.makeText(this, "Seller registered successfully", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(this, "Seller registered successfully", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

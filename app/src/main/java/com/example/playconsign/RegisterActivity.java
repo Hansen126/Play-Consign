@@ -94,6 +94,8 @@ public class RegisterActivity extends AppCompatActivity {
                 registerConfirmPasswordET.setError("Passwords do not match");
                 registerConfirmPasswordET.requestFocus();
             } else {
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(intent);
                 signUpUser(name, email, phone, address, password);
             }
         });
@@ -124,9 +126,6 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d("register", "User data stored successfully");
                             Toast.makeText(RegisterActivity.this, "Signup Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
                         } else {
                             Log.e("register", "Failed to store user data", task.getException());
                             Toast.makeText(RegisterActivity.this, "Failed to store user data. Please try again.", Toast.LENGTH_SHORT).show();

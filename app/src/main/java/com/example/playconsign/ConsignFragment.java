@@ -187,6 +187,8 @@ public class ConsignFragment extends Fragment {
                     consignTnCCB.setError("Please Agree to the Terms and Conditions");
                 } else {
                     try {
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        getContext().startActivity(intent);
                         CloudinaryManager.uploadImage(getContext(), imageUri, new CloudinaryManager.Callback() {
                             @Override
                             public void onSuccess(String imageUrl) {
@@ -195,6 +197,7 @@ public class ConsignFragment extends Fragment {
                                         categorySpinner.getSelectedItem().toString(),
                                         conditionSpinner.getSelectedItem().toString(),
                                         consignDescET.getText().toString(), imageUrl, productSellerUID);
+
                             }
 
                             @Override
@@ -204,6 +207,8 @@ public class ConsignFragment extends Fragment {
                         });
                     }
                     catch (Exception e) {
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        getContext().startActivity(intent);
                         Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -231,8 +236,6 @@ public class ConsignFragment extends Fragment {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Product consigned successfully!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), MainActivity.class);
-                            getContext().startActivity(intent);
                         } else {
                             Toast.makeText(getContext(), "Failed to consign product!", Toast.LENGTH_SHORT).show();
                         }

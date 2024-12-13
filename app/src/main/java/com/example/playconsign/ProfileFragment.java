@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -103,13 +104,23 @@ public class ProfileFragment extends Fragment {
             profileChangePassButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    firebaseAuth.sendPasswordResetEmail(currentUser.getEmail()).addOnCompleteListener(task -> {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Password reset email sent to " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Confirmation")
+                            .setMessage("A link to reset password will be sent to " + currentUser.getEmail())
+                            .setPositiveButton("Send", (dialog, which) -> {
+                                firebaseAuth.sendPasswordResetEmail(currentUser.getEmail()).addOnCompleteListener(task -> {
+                                    if(task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), "Password reset email sent to " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            })
+                            .setNegativeButton("Cancel", (dialog, which) -> {
+                                dialog.dismiss();
+                            })
+                            .setCancelable(true)
+                            .show();
                 }
             });
 
