@@ -92,7 +92,7 @@ public class SellerRegisterActivity extends AppCompatActivity {
                     Intent intent = new Intent(SellerRegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                     addToDatabase(shopName, IDNumber, domicile);
-                    Toast.makeText(this, "Seller registered successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SellerRegisterActivity.this, "Seller registered successfully", Toast.LENGTH_SHORT).show();
 
                 }
             }
