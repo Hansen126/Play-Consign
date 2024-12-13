@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-24dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_maroonbg" />
 
             <ImageView
@@ -182,14 +183,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="12dp"
-                android:text="By checking this, I confirmed that I agree to the" />
+                android:text="I Agree to the" />
 
             <TextView
                 android:id="@+id/registerTnCTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="52dp"
-                android:layout_marginTop="-16dp"
+                android:layout_marginLeft="144dp"
+                android:layout_marginTop="-34dp"
                 android:text="Terms and Conditions"
                 android:textColor="#03A9F4" />
 
