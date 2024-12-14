@@ -83,6 +83,7 @@
                 android:layout_marginTop="24dp"
                 android:backgroundTint="#9D1E1E"
                 android:text="Send Link"
+                android:textColor="#FFFFFF"
                 app:cornerRadius="8dp" />
 
         </LinearLayout>

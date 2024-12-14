@@ -29,9 +29,6 @@
             android:name=".UpdateProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".TransactionActivity"
-            android:exported="false" />
-        <activity
             android:name=".SellerRegisterActivity"
             android:exported="false" />
         <activity
