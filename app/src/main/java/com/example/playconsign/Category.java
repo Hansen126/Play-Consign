@@ -15,10 +15,6 @@ public class Category {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
     public int getImage() {
         return image;
     }
