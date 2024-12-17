@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -81,6 +82,7 @@ public class ConsignFragment extends Fragment {
 
     List<String> categoryList = new ArrayList<>();
     List<String> conditionList = new ArrayList<>();
+    private FrameLayout progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,6 +122,7 @@ public class ConsignFragment extends Fragment {
         ImageView consignImageIV = view.findViewById(R.id.consignImageIV);
         CheckBox consignTnCCB = view.findViewById(R.id.consignTnCCB);
         Button consignButton = view.findViewById(R.id.consignSubmitButton);
+        progressBar = view.findViewById(R.id.progressOverlay);
         String productSellerUID = currentUser.getUid();
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categoryList);
@@ -161,41 +164,71 @@ public class ConsignFragment extends Fragment {
         consignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                consignButton.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
                 if(consignNameET.getText().toString().isEmpty()) {
                     consignNameET.setError("Please Enter Your Product Name");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(consignNameET.getText().toString().length() < 10 || consignNameET.getText().toString().length() > 50) {
                     consignNameET.setError("Product Name Must Be Between 10 and 50 Characters");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(consignPriceET.getText().toString().isEmpty()) {
                     consignPriceET.setError("Please Enter Your Product Price");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(Integer.parseInt(consignPriceET.getText().toString()) < 10000 || consignPriceET.getText().toString().length() > 10) {
                     consignPriceET.setError("Product Price Must Be Atleast 10.000");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(Integer.parseInt(consignPriceET.getText().toString()) % 1000 != 0) {
                     consignPriceET.setError("Product Price Must Be Multiple of 1.000");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(categorySpinner.getSelectedItemPosition() == 0) {
                     Toast.makeText(getContext(), "Please Select Your Product Category", Toast.LENGTH_SHORT).show();
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(conditionSpinner.getSelectedItemPosition() == 0) {
                     Toast.makeText(getContext(), "Please Select Your Product Condition", Toast.LENGTH_SHORT).show();
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(consignDescET.getText().toString().isEmpty()) {
                     consignDescET.setError("Please Enter Your Product Description");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if(consignDescET.getText().toString().length() < 10 || consignDescET.getText().toString().length() > 5000) {
                     consignDescET.setError("Product Description Must Be Atleast 10 and 5000 Characters");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if (imageUri == null) {
                     Toast.makeText(getContext(), "Please select your product image", Toast.LENGTH_SHORT).show();
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if (productSellerUID == null) {
                     Toast.makeText(getContext(), "Seller information is not available yet. Please try again later.", Toast.LENGTH_SHORT).show();
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else if (!consignTnCCB.isChecked()) {
                     consignTnCCB.setError("Please Agree to the Terms and Conditions");
+                    consignButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     try {
                         CloudinaryManager.uploadImage(getContext(), imageUri, new CloudinaryManager.Callback() {
                             @Override
                             public void onSuccess(String imageUrl) {
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                getContext().startActivity(intent);
                                 startPayment(consignNameET.getText().toString(),
                                         Integer.parseInt(consignPriceET.getText().toString()),
                                         categorySpinner.getSelectedItem().toString(),
                                         conditionSpinner.getSelectedItem().toString(),
                                         consignDescET.getText().toString(),
                                         imageUrl);
+
+
 
 //                                addToFirebaseDatabase(consignNameET.getText().toString(),
 //                                        Integer.parseInt(consignPriceET.getText().toString()),
@@ -208,6 +241,8 @@ public class ConsignFragment extends Fragment {
                             @Override
                             public void onFailure(Exception e) {
                                 Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                                consignButton.setEnabled(true);
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
                     }
@@ -215,6 +250,8 @@ public class ConsignFragment extends Fragment {
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         getContext().startActivity(intent);
                         Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                        consignButton.setEnabled(true);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
             }
