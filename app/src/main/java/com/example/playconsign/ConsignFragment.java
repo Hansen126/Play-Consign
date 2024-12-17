@@ -187,16 +187,21 @@ public class ConsignFragment extends Fragment {
                     consignTnCCB.setError("Please Agree to the Terms and Conditions");
                 } else {
                     try {
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        getContext().startActivity(intent);
                         CloudinaryManager.uploadImage(getContext(), imageUri, new CloudinaryManager.Callback() {
                             @Override
                             public void onSuccess(String imageUrl) {
-                                addToFirebaseDatabase(consignNameET.getText().toString(),
+                                startPayment(consignNameET.getText().toString(),
                                         Integer.parseInt(consignPriceET.getText().toString()),
                                         categorySpinner.getSelectedItem().toString(),
                                         conditionSpinner.getSelectedItem().toString(),
-                                        consignDescET.getText().toString(), imageUrl, productSellerUID);
+                                        consignDescET.getText().toString(),
+                                        imageUrl);
+
+//                                addToFirebaseDatabase(consignNameET.getText().toString(),
+//                                        Integer.parseInt(consignPriceET.getText().toString()),
+//                                        categorySpinner.getSelectedItem().toString(),
+//                                        conditionSpinner.getSelectedItem().toString(),
+//                                        consignDescET.getText().toString(), imageUrl, productSellerUID);
 
                             }
 
@@ -222,24 +227,35 @@ public class ConsignFragment extends Fragment {
         pickImageLauncher.launch(intent);
     }
 
-    private void addToFirebaseDatabase(String productName, int productPrice, String productCategory,
-                                       String productCondition, String productDescription, String imageUrl,
-                                       String productSellerUID) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
-        String productId = databaseReference.push().getKey();
-
-        Product newProduct = new Product(productName, productPrice, productCategory,productCondition,
-                productDescription, imageUrl, productSellerUID);
-
-        if (productId != null) {
-            databaseReference.child(productId).setValue(newProduct)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Product consigned successfully!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Failed to consign product!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+    private void startPayment(String name, int price, String category, String condition, String description, String imageURL) {
+        Intent paymentIntent = new Intent(getContext(), PaymentActivity.class);
+        paymentIntent.putExtra("PRODUCT_NAME", name);
+        paymentIntent.putExtra("PRODUCT_PRICE", price);
+        paymentIntent.putExtra("PRODUCT_CATEGORY", category);
+        paymentIntent.putExtra("PRODUCT_CONDITION", condition);
+        paymentIntent.putExtra("PRODUCT_DESC", description);
+        paymentIntent.putExtra("PRODUCT_IMAGE", imageURL); // Uri to String
+        startActivity(paymentIntent);
     }
+
+//    private void addToFirebaseDatabase(String productName, int productPrice, String productCategory,
+//                                       String productCondition, String productDescription, String imageUrl,
+//                                       String productSellerUID) {
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
+//        String productId = databaseReference.push().getKey();
+//
+//        Product newProduct = new Product(productName, productPrice, productCategory,productCondition,
+//                productDescription, imageUrl, productSellerUID);
+//
+//        if (productId != null) {
+//            databaseReference.child(productId).setValue(newProduct)
+//                    .addOnCompleteListener(task -> {
+//                        if (task.isSuccessful()) {
+//                            Toast.makeText(getContext(), "Product consigned successfully!", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(getContext(), "Failed to consign product!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//        }
+//    }
 }
