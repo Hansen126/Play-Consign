@@ -97,7 +97,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void startPayment() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.18.5:3000/")
+                .baseUrl("https://midtransserver-production.up.railway.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
