@@ -129,7 +129,8 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(RegisterActivity.this, task -> {
                     if (task.isSuccessful()) {
                         Log.d("register", "Signup successful");
-                        addUserToDatabase(name, email, phone, address);
+                        firebaseAuth.signInWithEmailAndPassword(email, password);
+                        addUserToDatabase(name, email, phone, address, password);
                     } else {
                         Log.e("register", "Signup failed", task.getException());
                         EditText registerEmailET = findViewById(R.id.registerEmailET);
@@ -141,7 +142,8 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void addUserToDatabase(String name, String email, String phone, String address) {
+    private void addUserToDatabase(String name, String email, String phone, String address, String password) {
+        firebaseAuth.signInWithEmailAndPassword(email, password);
         if (firebaseAuth.getCurrentUser() != null) {
             String userId = firebaseAuth.getCurrentUser().getUid();
             User newUser = new User(name, email, phone, address);
